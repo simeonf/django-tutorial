@@ -1,3 +1,5 @@
+{% extends 'polls/base.html' %}
+{% block poll %}
 <h1>{{ poll.question }}</h1>
 
 <ul>
@@ -7,3 +9,4 @@
 </ul>
 
 <a href="/polls/{{ poll.id }}/">Vote again?</a>
+{% endblock %}
