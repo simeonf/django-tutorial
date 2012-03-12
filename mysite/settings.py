@@ -116,6 +116,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'polls',
     'debug_toolbar',
+    'django_extensions',
     'south',
 )
 
