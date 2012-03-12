@@ -4,6 +4,7 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
+{% if user.is_authenticated %}
 <form action="/polls/{{ poll.id }}/vote/" method="post">
 {% csrf_token %}
 {% for choice in poll.choice_set.all %}
@@ -12,4 +13,5 @@
 {% endfor %}
 <input type="submit" value="Vote" />
 </form>
+{% endif %}
 {% endblock %}
