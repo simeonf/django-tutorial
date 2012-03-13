@@ -1,0 +1,14 @@
+{% extends 'polls/base.html' %}
+{% block poll %}
+<style type="text/css">
+  .errorlist{color:red;}
+</style>  
+<form action="" method="POST">
+  {% csrf_token %}
+<h1>Enter your information to sign up</h1>
+<table>
+    {{ form }}
+    <tr><th></th><td><input type="submit" value="Submit"></td></tr>
+</table>
+</form>
+{% endblock %}

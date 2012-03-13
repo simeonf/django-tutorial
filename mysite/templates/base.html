@@ -18,17 +18,18 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Polls</a>
+          <a class="brand" href="#">Pro Django Sample Application</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="/polls/">Home</a></li>
+              <li class="active"><a href="/polls/">Polls</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
-
+    
     <div class="container">
+    <div style="float:right;">{% if user.is_authenticated %} Welcome {{ user }} / <a href="/logout/">Logout</a> {% else %} <a href="/login/">Login</a> {% endif %}</div>
     {% block content %}
     {% endblock %}
     </div> <!-- /container -->

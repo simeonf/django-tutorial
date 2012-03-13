@@ -1,26 +1,30 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 
 from polls.models import Poll, Choice
+from polls.forms import RegistrationForm
 
-
-
+def register(request):
+    form = RegistrationForm(request.POST or None)
+    if form.is_valid():
+        # Do processing
+        return HttpResponseRedirect(reverse('polls.views.index'))
+    return render(request, 'polls/register.html', {'form': form})
+                              
 def index(request):
     latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
-    return render_to_response('polls/index.html',
+    return render(request, 'polls/index.html',
                               {'latest_poll_list' : latest_poll_list})
 
 def detail(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
-    return render_to_response('polls/detail.html',
-                              {'poll': poll},
-                              context_instance=RequestContext(request))
+    return render(request, 'polls/detail.html', {'poll': poll})
 
 def results(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
-    return render_to_response('polls/result.html', {'poll':poll})
+    return render(request, 'polls/result.html', {'poll':poll})
 
 def vote(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
@@ -28,10 +32,9 @@ def vote(request, poll_id):
         selected_choice = poll.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the poll voting form.
-        return render_to_response('polls/detail.html', {
-            'poll': poll,
-            'error_message': "You didn't select a choice.",
-        }, context_instance=RequestContext(request))
+        return render(request, 'polls/detail.html', {
+            'poll': poll, 'error_message': "You didn't select a choice.",
+            })
     else:
         selected_choice.votes += 1
         selected_choice.save()

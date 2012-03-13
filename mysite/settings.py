@@ -120,7 +120,9 @@ INSTALLED_APPS = (
     'south',
 )
 
-INTERNAL_IPS = ('127.0.0.1', '192.168.1.131')
+INTERNAL_IPS = ('127.0.0.1',)
+
+LOGIN_REDIRECT_URL = "/polls/"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
