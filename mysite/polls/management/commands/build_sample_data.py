@@ -46,7 +46,12 @@ class Command(BaseCommand):
                 sentence = random.sample(lorem, random.randrange(3, 10)) # pick random number of words
                 random.shuffle(sentence)
                 sentence[0] = sentence[0].title()
-                p = Poll(question=" ".join(sentence) + "?", user=u, pub_date=random_date())
+                question=" ".join(sentence)
+                slug = question[:70].lower().replace(" ", "-")
+                num = 1
+                while Poll.objects.filter(slug=slug + str(num)):
+                    num += 1
+                p = Poll(question + "?", slug=slug+str(num), user=u, pub_date=random_date())
                 p.save()
                 # create 2 - 5 choices for each poll
                 for i in rrange(2, 3, 6):
