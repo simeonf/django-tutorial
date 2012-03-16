@@ -118,11 +118,14 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'django_extensions',
     'south',
+    'djcelery',
+    "kombu.transport.django"
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
 
 LOGIN_REDIRECT_URL = "/polls/"
+LOGIN_URL = "/login/"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -146,3 +149,9 @@ LOGGING = {
         },
     }
 }
+
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = "django://"
+
+
