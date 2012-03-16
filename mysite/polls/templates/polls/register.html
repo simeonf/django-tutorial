@@ -1,14 +1,26 @@
 {% extends 'polls/base.html' %}
 {% block poll %}
 <style type="text/css">
-  .errorlist{color:red;}
+  .formtable tr{position:relative;}
+
+  .errorlist{color:red;position:absolute;left:400px;}
+  .formtable td{vertical-align:top;}
+  .formtable th{width:120px;text-align:left;}
+
 </style>  
 <form action="" method="POST">
   {% csrf_token %}
 <h1>Enter your information to sign up</h1>
-<table>
+<br>
+
+<table class="formtable">
     {{ form }}
-    <tr><th></th><td><input type="submit" value="Submit"></td></tr>
 </table>
+<div class="well" style="width:60%">
+ <div style="padding-left:100px;">  
+   <input class="btn btn-primary" type="submit" value="Submit">
+ </div>
+</div>
+
 </form>
 {% endblock %}

@@ -1,17 +1,34 @@
 {% extends 'polls/base.html' %}
 {% block poll %}
+<script type="text/javascript">
+$(function(){
+    $("#like_btn").click(
+       function(){
+           $.post(window.location.href + "like/", {'poll': {{ poll.id }}},
+                  function(){$("#like_btn").hide();});
+       });
+});
+</script>  
+<style type="text/css">
+  .form-inline ul{list-style-type:none;}
+  .errorlist{color:red;}
+</style>  
 <h1>{{ poll.question }}</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 {% if user.is_authenticated %}
-<form action="/polls/{{ poll.id }}/vote/" method="post">
-{% csrf_token %}
-{% for choice in poll.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-    <label for="choice{{ forloop.counter }}">{{ choice.choice }}</label><br />
-{% endfor %}
-<input type="submit" value="Vote" />
-</form>
+    <form action="" method="post">
+    {% csrf_token %}
+    <div class="form-inline">
+     {{ form.choice }} {{ form.choice.errors }}
+    </div>
+    <div class="well" style="width:60%">
+       <input class="btn btn-primary" type="submit" value="Submit">
+    </div>
+    </form>
+{% else %}
+   {% include "polls/result_poll.html" %}
 {% endif %}
+<input class="btn btn-info" type="button" value="Like" id="like_btn">    
 {% endblock %}

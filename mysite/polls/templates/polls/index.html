@@ -1,12 +1,44 @@
 {% extends 'polls/base.html' %}
 {% block poll %}
-{% if latest_poll_list %}
-    <ul>
-    {% for poll in latest_poll_list %}
-        <li><a href="/polls/{{ poll.id }}/">{{ poll.question }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+<div class="row">
+<div class="span8 well">
+<h1>Welcome to my Polls application!</h1>
+</div>
+</div>  
+<div class="row">
+    <div class="span6">
+        <h1>Top Voted Polls</h1>
+        <table class="table table-striped">
+          <thead>
+            <tr><th>Poll</th><th>User</th><th>Votes</th><th>Age</th></tr>
+          </thead>
+          <tbody>
+            {% for poll in most_voted %}
+                <tr><td><a href="./poll/{{ poll.id }}/">{{ poll.question }}</a></td>
+                   <td><a href="./users/{{ poll.user.id }}">{{ poll.user }}</a></td>
+                   <td>{{ poll.num_votes }}</td>
+                   <td>{{ poll.pub_date|timesince }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    <div class="span6">
+        <h1>Most Favorited Polls</h1>
+        <table class="table table-striped">
+          <thead>
+            <tr><th>Poll</th><th>User</th><th>Favorites</th><th>Age</th></tr>
+          </thead>
+          <tbody>
+            {% for poll in most_favorited %}
+                <tr><td><a href="./poll/{{ poll.id }}/">{{ poll.question }}</a></td>
+                   <td><a href="./users/{{ poll.user.id }}">{{ poll.user }}</a></td>
+                   <td>{{ poll.num_favorites }}</td>
+                   <td>{{ poll.pub_date|timesince }}</td>
+                </tr>
+            {% endfor %}
+           </tbody>
+        </table>
+    </div>
+</div>      
 {% endblock %}
