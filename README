@@ -1,1 +1,2 @@
-This branch demonstrates the use of celery to run tasks asyncronously
+This branch extends the basic polls app to add more real world usage
+of templates, views, forms, and the orm.
